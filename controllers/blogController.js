@@ -1,5 +1,6 @@
 
 const Blog = require('../models/blog')
+const fs = require('fs');
 
 // blog_index
 const blog_index = (req, res) => {
@@ -14,16 +15,10 @@ const blog_index = (req, res) => {
 // blog_details
 const blog_details = async (req, res) => {
     const id = req.params.id;
-    const searched = await Blog.findOne({_id: id});
-
-    try {
-        await Blog.updateOne({ _id: id}, {viewCount: searched.viewCount+1});
-    } catch (error) {
-        console.log(error);
-    }
 
     Blog.findById(id)
         .then(async (result) => {
+            await Blog.updateOne({ _id: id}, {viewCount: result.viewCount+1});
             res.render('blogs/details', { title: 'Blog Details', blog: result }) 
         })
         .catch((err) => {
@@ -51,6 +46,7 @@ const blog_delete = (req, res) => {
     const id = req.params.id;
     Blog.findByIdAndDelete(id)
         .then((result) => {
+            fs.promises.unlink('./public/'+result.imgPath);
             res.json({redirect : '/blogs'})
         })
         .catch((err) => console.log(err));
