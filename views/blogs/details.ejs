@@ -1,0 +1,54 @@
+<html lang="en">
+<%- include("../partials/header.ejs") %>
+
+<body>
+  <%- include("../partials/nav.ejs") %>
+
+  <div class="details content">
+    <h1><%= blog.title %><br><br><span class="tags"><%= blog.tags %></span><br></h1><br>
+    <p class="desc"><%= blog.description %></p><br>
+    <div class="content">
+      <p class="imgContainer"><img class="blogDetailImg" src="http://localhost:5000/<%= blog.imgPath %>"></p><br><br>
+      <p class="blog-content"><%= blog.body %></p><br><br>
+    </div>
+    <div class="options">
+      <a class="like" id="like" data-doc="<%= blog._id %>">
+        <i class="fas fa-heart"></i>&nbsp;<%= blog.likeCount %>
+      </a>
+      <a class="views">
+        <i class="fa fa-eye"></i>&nbsp;<%= blog.viewCount %>
+      </a>
+      <a class="delete" data-doc="<%= blog._id %>">
+        <img src="/delete.png" alt="delete_icon" class="delete-icon" />
+      </a>
+    </div>
+  </div>
+
+  <%- include("../partials/footer.ejs") %>
+
+  <script>
+    const trashcan = document.querySelector('a.delete');
+    trashcan.addEventListener('click', (e) => {
+      const endpoint = `/blogs/${trashcan.dataset.doc}`;
+      fetch(endpoint, {
+        method: 'DELETE',
+      })
+      .then(response => response.json())
+      .then(data => window.location.href = data.redirect)
+      .catch(err => console.log(err));
+    });
+
+    const likeBtn = document.querySelector('#like');
+    console.log(likeBtn);
+    likeBtn.addEventListener('click', (e) => {
+      const endpoint = `/blogs/like/${likeBtn.dataset.doc}`;
+      fetch(endpoint, {
+        method: 'POST',
+      })
+      .then(response => response.json())
+      .then(data => window.location.href = data.redirect)
+      .catch(err => console.log(err));
+    });
+  </script>
+</body>
+</html>

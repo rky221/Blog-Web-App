@@ -1,0 +1,28 @@
+{
+  "name": "unbundled",
+  "version": "1.0.0",
+  "description": "A Blog Application",
+  "main": "app.js",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.12",
+    "multer": "^1.4.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "html",
+    "css",
+    "javascript",
+    "nodejs",
+    "expressjs",
+    "mongodb",
+    "ejs"
+  ],
+  "author": "Naveen, Prateek, Rahul",
+  "license": "ISC"
+}

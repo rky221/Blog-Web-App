@@ -1,0 +1,30 @@
+<html>
+    <%- include('../partials/header.ejs') %>
+<body>
+    <%- include('../partials/nav.ejs') %>
+
+    <div class="blogs content">
+        <h2>Blogs <span>| Writing | Travel | Tech | Movie Reviews</span></h2>
+        <%if(blogs.length){ %>
+            <% blogs.forEach(blog => { %>
+            <a class="single" href="/blogs/<%=blog._id%>" >
+                <div class="idx-container">
+                    <div class="idx-desc">
+                        <h3 class="title"><%=blog.title%></h3> 
+                        <p class="tags"><%=blog.tags%></p>   <br>
+                        <p class="description"><%=blog.description%></p>  <br>
+                        <p><i class="fas fa-heart"></i>&nbsp;<%= blog.likeCount %> &nbsp;<i class="fa fa-eye"></i>&nbsp;<%= blog.viewCount %><p><br>
+                    </div> 
+                    <div class="idx-img">
+                        <img class="blogIdxImg" src="http://localhost:5000/<%= blog.imgPath %>"></p>
+                    </div>
+                </div>
+            </a>
+        <% });%>
+        <%} else {%>
+            <p>No blogs to display</p>
+        <%}%>
+    </div>
+    <%- include('../partials/footer.ejs') %>
+</body>
+</html>
